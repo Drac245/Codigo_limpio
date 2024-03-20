@@ -2,13 +2,8 @@ import unittest
 from io import StringIO
 from unittest.mock import patch
 
-def calcular_nomina(salario_basico,subsidio_transporte,tiempo_laborado,tiempo_festivo_laborado,horas_extra_diurnas,
-                    horas_extra_nocturnas,horas_extra_festivas,porcentaje_salud,porcentaje_pension,
-                    porcentaje_fondo_solidaridad,tiempo_incapacidades,tiempo_licencias):
-#def calcular_nomina():
-
-    # Entradas de usuario
-    """salario_basico = float(input("Ingrese el salario basico mensual: "))
+def calcular_nomina():
+    salario_basico = float(input("Ingrese el salario basico mensual: "))
     subsidio_transporte = float(input("Ingrese el subsidio de transporte: "))
     tiempo_laborado = str(input("Ingrese el tiempo laborado (# semana/quincena/decada/años): "))
     tiempo_festivo_laborado = int(input("Ingrese el tiempo festivo laborado (dias): "))
@@ -19,8 +14,8 @@ def calcular_nomina(salario_basico,subsidio_transporte,tiempo_laborado,tiempo_fe
     porcentaje_pension = float(input("Ingrese el porcentaje de aporte a pensión: %"))
     porcentaje_fondo_solidaridad = float(input("Ingrese el porcentaje de aporte al fondo de solidaridad pensional: %"))
     tiempo_incapacidades = int(input("Ingrese el tiempo de incapacidades (Horas): "))
-    tiempo_licencias = int(input("Ingrese el tiempo de licencias (Horas): "))"""
-
+    tiempo_licencias = int(input("Ingrese el tiempo de licencias (Horas): "))
+    
     # Cálculos
     aux = tiempo_laborado.split(" ")
 
