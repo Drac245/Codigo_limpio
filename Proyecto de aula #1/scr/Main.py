@@ -16,7 +16,7 @@ def calcular_nomina():
     tiempo_incapacidades = int(input("Ingrese el tiempo de incapacidades (Horas): "))
     tiempo_licencias = int(input("Ingrese el tiempo de licencias (Horas): "))
     
-    # Cálculos
+    # Calculos
     aux = tiempo_laborado.split(" ")
 
     if (aux[1] == "semana" or (aux[1] == "semanas")):
