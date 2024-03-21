@@ -39,7 +39,7 @@ def calcular_valor_licencia_no_remunerada(valor_hora_laborada, tiempo_licencias_
 
 def calcular_valor_fondo_solidaridad_pensional(salario_base_mensual):
     """Calcula el valor al fondo de solidaridad pensional."""
-    smmlv = salario_base_mensual / 1300000  # Salario base en SMMLV
+    smmlv = salario_base_mensual / 1300000 
     if smmlv > 20:
         return salario_base_mensual * 0.02
     elif 19 < smmlv <= 20:
@@ -70,13 +70,9 @@ def solicitar_datos_entrada():
 
 def mostrar_informacion(valor_salario, subsidio_transporte, valor_hora_extra_diurna, valor_hora_extra_nocturna, valor_hora_extra_festivo, valor_dias_festivos, valor_incapacidad, valor_licencia_no_remunerada, valor_aporte_a_salud, valor_aporte_a_pension, valor_fondo_solidaridad_pensional):
     """Muestra la información calculada en pantalla."""
-    # Calculamos el total de ingresos
+
     total_ingresos = valor_salario + subsidio_transporte + valor_dias_festivos + valor_hora_extra_diurna + valor_hora_extra_nocturna + valor_hora_extra_festivo + valor_incapacidad
-    
-    # Calculamos el total de deducciones
     total_deducciones = valor_licencia_no_remunerada + valor_aporte_a_salud + valor_aporte_a_pension + valor_fondo_solidaridad_pensional
-    
-    # Calculamos el total neto
     total_neto = total_ingresos - total_deducciones
     
     print("\nInformación de liquidación de nómina:")
@@ -123,8 +119,6 @@ def modificar_parametros():
         porcentaje_extra_festivo = float(nuevo_extra_festivo)
     
     print("Parámetros modificados correctamente.")
-
-
 
 def mostrar_menu():
     """Muestra el menú de opciones."""

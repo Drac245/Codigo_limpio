@@ -20,7 +20,7 @@ Este es un programa Python que permite calcular la liquidación de nómina para 
 
 1. Clona este repositorio en tu máquina local:
 
-git clone https://github.com/tu_usuario/sistema-liquidacion-nomina.git
+    git clone https://github.com/tu_usuario/sistema-liquidacion-nomina.git
 
 2. Navega hasta cd sistema-liquidacion-nomina, y ejecuta el programa "python liquidacion_nomina.py"
 
