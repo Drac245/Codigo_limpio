@@ -40,6 +40,8 @@ Este proyecto está bajo la licencia Mozilla Public License Version 2.0. Consult
 
 ## Desarrolladores
 
-##Juan Manuel Garcia (jmgg1326)
-##Daniel Meza (drac245)
-##Esteban parra zapata (Esteban1903)
+Juan Manuel Garcia (jmgg1326)
+
+Daniel Meza (drac245)
+
+Esteban parra zapata (Esteban1903)
