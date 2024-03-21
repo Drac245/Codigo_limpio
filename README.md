@@ -40,4 +40,5 @@ Este proyecto está bajo la licencia Mozilla Public License Version 2.0. Consult
 
 ## Desarrolladores
 
+Juan Manuel Garcia (jmgg1326)
 Daniel Meza (drac245)
