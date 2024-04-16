@@ -4,6 +4,7 @@ from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.label import Label
 from kivy.uix.textinput import TextInput
 from kivy.uix.button import Button
+from kivy.uix.scrollview import ScrollView
 from liquidador_nomina import *
 
 class NominaApp(App):
@@ -55,9 +56,13 @@ class NominaApp(App):
         self.calcular_button.bind(on_press=self.calcular_nomina)
         self.main_layout.add_widget(self.calcular_button)
 
-        # Etiqueta para mostrar los resultados
-        self.resultado_label = Label(text="")
-        self.main_layout.add_widget(self.resultado_label)
+                # Etiqueta para mostrar los resultados
+        self.resultado_label = Label(text="", size_hint_y=None)
+        self.resultado_label.bind(width=lambda s, w: setattr(s, 'text_size', (w, None)), texture_size=lambda s, ts:setattr(s, 'height', ts[1]))
+
+        scroll_view = ScrollView()
+        scroll_view.add_widget(self.resultado_label)
+        self.main_layout.add_widget(scroll_view)
 
         return self.main_layout
 
