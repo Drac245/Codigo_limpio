@@ -1,4 +1,4 @@
-# README - Sistema de Liquidación de Nómina
+# Sistema de Liquidación de Nómina
 
 Este es un programa Python que permite calcular la liquidación de nómina para empleados, teniendo en cuenta diferentes factores como el salario base, horas laboradas, horas extras, días festivos laborados, incapacidades y más. El programa también ofrece la opción de modificar parámetros globales y calcular el total neto a pagar al empleado.
 
