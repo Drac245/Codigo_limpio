@@ -1,4 +1,4 @@
-# Sistema de Liquidación de Nómina
+# README - Sistema de Liquidación de Nómina
 
 Este es un programa Python que permite calcular la liquidación de nómina para empleados, teniendo en cuenta diferentes factores como el salario base, horas laboradas, horas extras, días festivos laborados, incapacidades y más. El programa también ofrece la opción de modificar parámetros globales y calcular el total neto a pagar al empleado.
 
@@ -19,12 +19,12 @@ Este es un programa Python que permite calcular la liquidación de nómina para 
 ## Uso
 
 1. Clona este repositorio en tu máquina local:
-
+    ```bash
     git clone https://github.com/tu_usuario/sistema-liquidacion-nomina.git
-
-2. Navega hasta cd sistema-liquidacion-nomina, y ejecuta el programa "python liquidacion_nomina.py".
-
+    ```
+2. En el directorio raiz ejecuta una consola de CMD y ejecuta el codigo `python -m src.Console.LiquidadorNominaConsola`
 3. Sigue las instrucciones en pantalla para ingresar los datos necesarios y realizar el cálculo de la liquidación de nómina.
+
 
 ## Funcionamiento
 
@@ -36,12 +36,10 @@ El programa ofrece la opción de modificar los parámetros globales, como el sub
 
 ## Licencia
 
-Este proyecto está bajo la licencia Mozilla Public License Version 2.0. Consulta el archivo LICENSE para obtener más detalles.
+Este proyecto está bajo la licencia MIT. Consulta el archivo LICENSE para obtener más detalles.
 
 ## Desarrolladores
 
-Juan Manuel Garcia (jmgg1326)
-
-Daniel Meza (drac245)
-
-Esteban parra zapata (Esteban1903)
+- Juan Manuel Garcia (jmgg1326)
+- Daniel Meza (drac245)
+- Esteban Parra Zapata (Esteban1903)
