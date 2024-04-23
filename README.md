@@ -15,6 +15,7 @@ Este es un programa Python que permite calcular la liquidación de nómina para 
 ## Requisitos del Sistema
 
 - Python 3.x instalado.
+- Libreria grafica Kivy instalada.
 
 ## Uso
 
@@ -22,9 +23,15 @@ Este es un programa Python que permite calcular la liquidación de nómina para 
     ```bash
     git clone https://github.com/tu_usuario/sistema-liquidacion-nomina.git
     ```
-2. En el directorio raiz ejecuta una consola de CMD y ejecuta el codigo `python -m src.Console.LiquidadorNominaConsola`
+2. En el directorio raiz abre una consola de CMD y ejecuta el comando `python -m src.Console.LiquidadorNominaConsola` si quieres usar la app por consola, o `python -m src.GUI.LiquidadorNominaGUI` si quieres ejecutar el programa por medio de una interfaz grafica.
 3. Sigue las instrucciones en pantalla para ingresar los datos necesarios y realizar el cálculo de la liquidación de nómina.
 
+## Pruebas unitarias
+
+Se pueden correr estas pruebas de dos maneras.
+
+1. Mediante la herramienta `Run and Debug` que ofrece visual studio.
+2. En el directorio raiz abre una consola de CMD y ejecuta el comando `python -m unittest tests/LiquidadorNomina_test.py`, o `python -m unittest tests/LiquidadorNomina_test.py -v` si quieres ejecutar las pruebas con mas detalles.
 
 ## Funcionamiento
 

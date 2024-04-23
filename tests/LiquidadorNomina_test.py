@@ -1,5 +1,10 @@
 import unittest
-from LiquidadorNomina.LiquidadorNominaCode import *
+import sys
+import os
+
+sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'src'))
+
+from LiquidadorNomina.FuncionesDeCalculo import calcular_valor_dias_festivos, calcular_valor_fondo_solidaridad_pensional, calcular_valor_hora_extra_diurna, calcular_valor_hora_extra_nocturna, calcular_valor_hora_extra_festivo, calcular_valor_incapacidad, calcular_valor_licencia_no_remunerada
 
 class TestCalculadoraDeNomina(unittest.TestCase):
 
@@ -62,7 +67,6 @@ class TestCalculadoraDeNomina(unittest.TestCase):
         for valor_hora_laborada, horas_extra_nocturnas in casos_prueba:
             with self.assertRaises(TypeError):
                 calcular_valor_hora_extra_nocturna(valor_hora_laborada, horas_extra_nocturnas)
-
 
 #-----------------------------Funcion calcular_valor_hora_extra_festivo
     def test_calcular_valor_hora_extra_festivo_normal(self):
@@ -214,6 +218,7 @@ class TestCalculadoraDeNomina(unittest.TestCase):
             with self.assertRaises(TypeError):
                 calcular_valor_fondo_solidaridad_pensional(salario_base_mensual)
 
+# Ejecuta las pruebas si este archivo se ejecuta como un script
 if __name__ == '__main__':
     unittest.main()
 
