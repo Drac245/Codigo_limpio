@@ -20,47 +20,49 @@ class MainScreen(Screen):
                              font_size='20sp', bold=True)
         main_layout.add_widget(header_label)
 
-        # Crear un diseño de cuadrícula para las entradas de datos
-        input_layout = GridLayout(cols=2, row_default_height=40, row_force_default=True,
+        # Crear dos diseños de cuadrícula para las entradas de datos
+        input_layout1 = GridLayout(cols=2, row_default_height=40, row_force_default=True,
+                                  spacing=10, padding=10)
+        input_layout2 = GridLayout(cols=2, row_default_height=40, row_force_default=True,
                                   spacing=10, padding=10)
 
-        # Agregar los campos de entrada
-        input_layout.add_widget(Label(text="Salario base mensual:"))
+        # Agregar los campos de entrada al primer layout
+        input_layout1.add_widget(Label(text="Salario base mensual:"))
         self.salario_input = TextInput(multiline=False)
-        input_layout.add_widget(self.salario_input)
+        input_layout1.add_widget(self.salario_input)
 
-        input_layout.add_widget(Label(text="Tiempo laborado al mes (horas):"))
+        input_layout1.add_widget(Label(text="Tiempo laborado al mes (horas):"))
         self.tiempo_laborado_input = TextInput(multiline=False)
-        input_layout.add_widget(self.tiempo_laborado_input)
+        input_layout1.add_widget(self.tiempo_laborado_input)
 
-        input_layout.add_widget(Label(text="Tiempo festivo laborado (días):"))
+        input_layout1.add_widget(Label(text="Tiempo festivo laborado (días):"))
         self.tiempo_festivo_laborado_input = TextInput(multiline=False)
-        input_layout.add_widget(self.tiempo_festivo_laborado_input)
+        input_layout1.add_widget(self.tiempo_festivo_laborado_input)
 
-        input_layout.add_widget(Label(text="Horas extras diurnas laboradas:"))
-        self.horas_extra_diurnas_input = TextInput(multiline=False)
-        input_layout.add_widget(self.horas_extra_diurnas_input)
-
-        input_layout.add_widget(Label(text="Horas extras nocturnas laboradas:"))
-        self.horas_extra_nocturnas_input = TextInput(multiline=False)
-        input_layout.add_widget(self.horas_extra_nocturnas_input)
-
-        input_layout.add_widget(Label(text="Horas extras festivas laboradas:"))
-        self.horas_extra_festivas_input = TextInput(multiline=False)
-        input_layout.add_widget(self.horas_extra_festivas_input)
-
-        input_layout.add_widget(Label(text="Incapacidades (días):"))
-        # Asegurar que las entradas sean válidas
-        self.incapacidades_input = TextInput(multiline=False)
-        input_layout.add_widget(self.incapacidades_input)
-
-        input_layout.add_widget(Label(text="Licencias no remuneradas (días):"))
-        # Asegurar que las entradas sean válidas
+        input_layout1.add_widget(Label(text="Licencias no remuneradas (días):"))
         self.licencias_no_remuneradas_input = TextInput(multiline=False)
-        input_layout.add_widget(self.licencias_no_remuneradas_input)
+        input_layout1.add_widget(self.licencias_no_remuneradas_input)
 
-        # Añadir diseño de entradas al diseño principal
-        main_layout.add_widget(input_layout)
+        # Agregar los campos de entrada al segundo layout
+        input_layout2.add_widget(Label(text="Horas extras diurnas laboradas:"))
+        self.horas_extra_diurnas_input = TextInput(multiline=False)
+        input_layout2.add_widget(self.horas_extra_diurnas_input)
+
+        input_layout2.add_widget(Label(text="Horas extras nocturnas laboradas:"))
+        self.horas_extra_nocturnas_input = TextInput(multiline=False)
+        input_layout2.add_widget(self.horas_extra_nocturnas_input)
+
+        input_layout2.add_widget(Label(text="Horas extras festivas laboradas:"))
+        self.horas_extra_festivas_input = TextInput(multiline=False)
+        input_layout2.add_widget(self.horas_extra_festivas_input)
+
+        input_layout2.add_widget(Label(text="Incapacidades (días):"))
+        self.incapacidades_input = TextInput(multiline=False)
+        input_layout2.add_widget(self.incapacidades_input)
+
+        # Añadir diseños de entradas al diseño principal
+        main_layout.add_widget(input_layout1)
+        main_layout.add_widget(input_layout2)
 
         # Crear un diseño de scroll para los resultados
         resultado_scroll_view = ScrollView(size_hint_y=1)
@@ -80,8 +82,27 @@ class MainScreen(Screen):
         # Añadir el botón de cálculo al final del diseño principal
         main_layout.add_widget(self.calcular_button)
 
+        # Botón para limpiar los campos de entrada
+        self.limpiar_button = Button(text="Limpiar",
+                                     size_hint_y=None, height=40)
+        self.limpiar_button.bind(on_press=self.limpiar_campos)
+        
+        # Añadir el botón de limpieza al final del diseño principal
+        main_layout.add_widget(self.limpiar_button)
+
         # Asignar el diseño principal a la pantalla
         self.add_widget(main_layout)
+
+    def limpiar_campos(self, instance):
+        # Limpiar todos los campos de entrada
+        self.salario_input.text = ""
+        self.tiempo_laborado_input.text = ""
+        self.tiempo_festivo_laborado_input.text = ""
+        self.licencias_no_remuneradas_input.text = ""
+        self.horas_extra_diurnas_input.text = ""
+        self.horas_extra_nocturnas_input.text = ""
+        self.horas_extra_festivas_input.text = ""
+        self.incapacidades_input.text = ""
 
     def validar_entrada(self, entrada):
         """Intenta convertir una entrada a float. Devuelve None si falla."""
@@ -170,6 +191,12 @@ class NominaApp(App):
         main_screen = MainScreen(name="main")
         sm.add_widget(main_screen)
         return sm
+
+    def formato(self, numero):
+        numero_redondeado = round(numero, 2)
+        if numero_redondeado == -0.0:
+            numero_redondeado = 0.0
+        return f"{numero_redondeado:.2f}"
 
 if __name__ == "__main__":
     NominaApp().run()
