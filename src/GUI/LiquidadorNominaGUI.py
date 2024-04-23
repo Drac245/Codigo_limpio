@@ -200,4 +200,3 @@ class NominaApp(App):
 
 if __name__ == "__main__":
     NominaApp().run()
-
