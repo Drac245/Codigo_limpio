@@ -38,15 +38,12 @@ class MainScreen(Screen):
         input_layout1.add_widget(Label(text="Tiempo festivo laborado (días):"))
         self.tiempo_festivo_laborado_input = TextInput(multiline=False)
         input_layout1.add_widget(self.tiempo_festivo_laborado_input)
-
-        input_layout1.add_widget(Label(text="Licencias no remuneradas (días):"))
-        self.licencias_no_remuneradas_input = TextInput(multiline=False)
-        input_layout1.add_widget(self.licencias_no_remuneradas_input)
+        
+        input_layout1.add_widget(Label(text="Horas extras diurnas laboradas:"))
+        self.horas_extra_diurnas_input = TextInput(multiline=False)
+        input_layout1.add_widget(self.horas_extra_diurnas_input)
 
         # Agregar los campos de entrada al segundo layout
-        input_layout2.add_widget(Label(text="Horas extras diurnas laboradas:"))
-        self.horas_extra_diurnas_input = TextInput(multiline=False)
-        input_layout2.add_widget(self.horas_extra_diurnas_input)
 
         input_layout2.add_widget(Label(text="Horas extras nocturnas laboradas:"))
         self.horas_extra_nocturnas_input = TextInput(multiline=False)
@@ -59,6 +56,10 @@ class MainScreen(Screen):
         input_layout2.add_widget(Label(text="Incapacidades (días):"))
         self.incapacidades_input = TextInput(multiline=False)
         input_layout2.add_widget(self.incapacidades_input)
+        
+        input_layout2.add_widget(Label(text="Licencias no remuneradas (días):"))
+        self.licencias_no_remuneradas_input = TextInput(multiline=False)
+        input_layout2.add_widget(self.licencias_no_remuneradas_input)
 
         # Añadir diseños de entradas al diseño principal
         main_layout.add_widget(input_layout1)
@@ -138,35 +139,33 @@ class MainScreen(Screen):
         # Variables de configuración (porcentajes y valores fijos)
         porcentaje_aporte_salud = 0.04  # 4% de aportes a salud
         porcentaje_aporte_pension = 0.04  # 4% de aportes a pensión
-        subsidio_transporte = 100  # Valor del subsidio de transporte (debe verificar el valor exacto)
+        subsidio_transporte = 162000  # Valor del subsidio de transporte (debe verificar el valor exacto)
         dias_trabajo_mensuales = 30
 
         # Calcular valores
+        
         valor_hora_laborada = salario_base_mensual / 192
         valor_salario = valor_hora_laborada * tiempo_laborado
-        valor_días_festivos = valor_hora_laborada * tiempo_festivo_laborado
-        valor_horas_extra_diurnas = horas_extra_diurnas * valor_hora_laborada * 1.25
-        valor_horas_extra_nocturnas = horas_extra_nocturnas * valor_hora_laborada * 1.75
-        valor_horas_extra_festivas = horas_extra_festivas * valor_hora_laborada * 2
-        valor_incapacidades = -valor_hora_laborada * incapacidades
-        valor_licencias_no_remuneradas = -valor_hora_laborada * licencias_no_remuneradas
+        valor_horas_extra_festivas = (valor_hora_laborada + (valor_hora_laborada * 0.75)) * horas_extra_festivas
+        valor_días_festivos = (8*(valor_hora_laborada + (valor_hora_laborada * 0.75))) * tiempo_festivo_laborado
+        valor_horas_extra_diurnas = (valor_hora_laborada + (valor_hora_laborada * 0.25)) * horas_extra_diurnas
+        valor_horas_extra_nocturnas = (valor_hora_laborada + (valor_hora_laborada * 0.75)) * horas_extra_nocturnas
+        valor_incapacidades = (valor_hora_laborada * 8) * incapacidades if incapacidades <= 2 else ((valor_hora_laborada * 8) * incapacidades * 0.6666 if incapacidades <= 90 else (valor_hora_laborada * 8 * incapacidades * 0.5)) 
+        valor_licencias_no_remuneradas = ((valor_hora_laborada * 8) * licencias_no_remuneradas)
 
         # Calcular aportes a salud, pensión y fondo de solidaridad pensional
         base_de_aporte = valor_salario + subsidio_transporte + valor_días_festivos + valor_horas_extra_diurnas + valor_horas_extra_nocturnas + valor_horas_extra_festivas
-        valor_aporte_a_salud = base_de_aporte * porcentaje_aporte_salud
-        valor_aporte_a_pension = base_de_aporte * porcentaje_aporte_pension
-        
+        valor_aporte_a_salud = ((valor_salario) + (subsidio_transporte) +(valor_días_festivos)+(valor_horas_extra_diurnas)+(valor_horas_extra_nocturnas)+(valor_horas_extra_festivas)) * porcentaje_aporte_salud
+        valor_aporte_a_pension = ((valor_salario) + (subsidio_transporte) +(valor_días_festivos)+(valor_horas_extra_diurnas)+(valor_horas_extra_nocturnas)+(valor_horas_extra_festivas)) * porcentaje_aporte_pension
+            
         # Verifique si el salario base mensual excede los 4 salarios mínimos para determinar el fondo de solidaridad pensional
-        salario_minimo_mensual = 1000  # Suponga que este es el salario mínimo, ajuste según sea necesario
-        if salario_base_mensual > 4 * salario_minimo_mensual:
-            porcentaje_fondo_solidaridad_pensional = 0.01  # 1% al fondo de solidaridad pensional
-            valor_fondo_solidaridad_pensional = base_de_aporte * porcentaje_fondo_solidaridad_pensional
-        else:
-            valor_fondo_solidaridad_pensional = 0
+        salario_minimo_mensual = 1300000  # Suponga que este es el salario mínimo, ajuste según sea necesario
+        smmlv = salario_base_mensual / salario_minimo_mensual
+        valor_fondo_solidaridad_pensional = salario_base_mensual*0.02 if smmlv > 20 else (salario_base_mensual * 0.018 if 19 < smmlv <= 20 else (salario_base_mensual*0.016 if 18 < smmlv <= 19 else (salario_base_mensual*0.014 if 17<smmlv<=18 else (salario_base_mensual*0.012 if 16<smmlv<=17 else(salario_base_mensual*0.01 if 4<smmlv<=16 else(0))))))
         
         # Calcular totales
-        total_ingresos = valor_salario + subsidio_transporte + valor_días_festivos + valor_horas_extra_diurnas + valor_horas_extra_nocturnas + valor_horas_extra_festivas
-        total_deducciones = valor_incapacidades + valor_licencias_no_remuneradas + valor_aporte_a_salud + valor_aporte_a_pension + valor_fondo_solidaridad_pensional
+        total_ingresos = valor_salario + subsidio_transporte + valor_días_festivos + valor_horas_extra_diurnas + valor_horas_extra_nocturnas + valor_horas_extra_festivas + valor_incapacidades
+        total_deducciones = valor_licencias_no_remuneradas + valor_aporte_a_salud + valor_aporte_a_pension + valor_fondo_solidaridad_pensional
         total_neto = total_ingresos - total_deducciones
 
         # Mostrar los resultados
@@ -184,6 +183,8 @@ class MainScreen(Screen):
             f"Fondo de solidaridad pensional: {valor_fondo_solidaridad_pensional:.2f}\n"
             f"Total neto a pagar: {total_neto:.2f}"
         )
+        
+        
 
 class NominaApp(App):
     def build(self):
